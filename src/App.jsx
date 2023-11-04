@@ -19,10 +19,9 @@ function App() {
 
   const clickTodoListAddHandler = () => {
     const newTodoLIst = {
-      id: todoList.length + 1,
+      id: Date.now(),
       title,
       content: content,
-      isDone: false,
     };
     setTodoList([...todoList, newTodoLIst]);
     setTitle("");
@@ -32,7 +31,7 @@ function App() {
   // 완료카드? 완료된 카드가 보이도록 state를 하나 더 만들어줌
   const [doneList, setDoneList] = useState([]);
 
-  // 삭제하기
+  // 할 일 삭제하기
   const clickTodoListRemoveHandler = function (id) {
     const newList = todoList.filter(function (list) {
       // console.log(list.id);
@@ -41,22 +40,43 @@ function App() {
     setTodoList(newList);
   };
 
-  // 클릭을 하면 isDone 값이 true면 취소버튼... false면 완료버튼...
-  // 모두 등록 후 완료하면 id값이 다르지만 등록-완료-등록-완료 하면 id값이 같음..
-  const clickDoneList = function (id) {
-    const doneNewList = todoList.filter((list) => {
-      if (list.id === id) {
-        list.isDone = !list.isDone;
-      }
-      return list.id === id;
-    });
-    const List = todoList.filter(function (list) {
-      // console.log(list.id);
+  // 완료 삭제하기
+  const ClickDTRemoveHandler = (id) => {
+    const doneTodo = doneList.filter((list) => {
       return list.id !== id;
     });
-    console.log(...doneList, ...doneNewList);
+    setDoneList(doneTodo);
+  };
+
+  // 할일 완료
+  const clickDoneList = function (id) {
+    const doneNewList = {
+      id: id.id,
+      title: id.title,
+      content: id.content,
+    };
+    const List = todoList.filter(function (list) {
+      // console.log(list.id);
+      return list.id !== id.id;
+    });
+    console.log(id);
     setTodoList(List);
-    setDoneList([...doneList, ...doneNewList]);
+    setDoneList([...doneList, doneNewList]);
+  };
+
+  // 완료 취소
+  const clickCancelHandler = (id) => {
+    const newCancelList = {
+      id: id.id,
+      title: id.title,
+      content: id.content,
+    };
+    const doneDelTodo = doneList.filter((list) => {
+      return list.id !== id.id;
+    });
+    console.log(id);
+    setDoneList(doneDelTodo);
+    setTodoList([...todoList, newCancelList]);
   };
 
   return (
@@ -76,23 +96,23 @@ function App() {
         <p>🔥Working</p>
       </div>
 
-      {todoList.map((list) => {
+      {todoList.map((todoList) => {
         return (
           <div>
-            <div key={list.id}>
-              <p>{list.title}</p>
-              {list.content}
+            <div key={todoList.id}>
+              <p>{todoList.title}</p>
+              {todoList.content}
             </div>
             <button
               onClick={() => {
-                clickTodoListRemoveHandler(list.id);
+                clickTodoListRemoveHandler(todoList.id);
               }}
             >
               삭제하기
             </button>
             <button
               onClick={() => {
-                clickDoneList(list.id);
+                clickDoneList(todoList);
               }}
             >
               완료
@@ -105,23 +125,23 @@ function App() {
         <p>✌️Done!!</p>
       </div>
 
-      {doneList.map((list) => {
+      {doneList.map((doneList) => {
         return (
           <div>
-            <div key={list.id}>
-              <p>{list.title}</p>
-              {list.content}
+            <div key={doneList.id}>
+              <p>{doneList.title}</p>
+              {doneList.content}
             </div>
             <button
               onClick={() => {
-                clickTodoListRemoveHandler(list.id);
+                ClickDTRemoveHandler(doneList.id);
               }}
             >
               삭제하기
             </button>
             <button
               onClick={() => {
-                clickDoneList(list.id);
+                clickCancelHandler(doneList);
               }}
             >
               취소
