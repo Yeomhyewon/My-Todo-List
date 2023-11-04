@@ -15,3 +15,39 @@
 5. 반복되는 컴포넌트를 파악하고 재사용할 수 있는 **컴포넌트로 분리해 보셨나요?** 그렇다면 **어떠한 이점이 있었나요?**
 
 - 분리하기 전에는 코드가 길어서 코드를 찾는데에 헤매고 다른 코드로 착각했는데 분리를 해서 하나로 재사용해서 쓰니 찾는 코드를 바로 바로 찾을 수 있어서 편리해졌습니다.
+- 분리한 컴포넌트
+```import React from "react";
+import "../App.jsx";
+
+function TodoList(props) {
+  const { title, content, key, todoList, firstBtn, secondBtn } = props;
+
+  return (
+    <div className="todoCard">
+      <div key={key}>
+        <h3>{title}</h3>
+        <p>{content}</p>
+      </div>
+      <div className="firstSecondBtn">
+        <button
+          className="firstBtn"
+          onClick={() => {
+            props.firstBtnHandler(todoList.id);
+          }}
+        >
+          {firstBtn}
+        </button>
+        <button
+          className="secondBtn"
+          onClick={() => {
+            props.secondBtnHandler(todoList);
+          }}
+        >
+          {secondBtn}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default TodoList;```
