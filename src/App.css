@@ -1,0 +1,157 @@
+@font-face {
+  font-family: "HakgyoansimWoojuR";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimWoojuR.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  border-collapse: collapse;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: "HakgyoansimWoojuR";
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0px;
+  margin-top: 25px;
+  font-size: larger;
+  background-color: #ffe3e1;
+}
+
+.layout {
+  max-width: 1200px;
+  min-width: 800px;
+  margin: auto;
+}
+
+h2 {
+  margin: 20px 0px;
+}
+
+h3 {
+  margin: 5px 0px;
+}
+
+p {
+  margin-top: 20px;
+}
+
+.inputBox {
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+
+  background-color: #ffe3e1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  font-size: x-large;
+
+  font-weight: bold;
+
+  padding: 45px 0px;
+}
+
+.inputTitle,
+.inputContent,
+.addTodoListBtn {
+  padding: 10px 10px;
+  border: none;
+  border-radius: 15px;
+
+  font-weight: bold;
+  font-size: large;
+}
+
+.addTodoListBtn {
+  width: 50%;
+  margin-left: 30%;
+
+  cursor: pointer;
+
+  transition: all 0.5s;
+  background-color: #d2daff;
+}
+
+.addTodoListBtn:hover {
+  box-shadow: 0px 0px 5px 3px #d2daff;
+  transform: translateY(-3px);
+}
+
+.inputTitle,
+.inputContent {
+  width: 60%;
+  background-color: #d2daff;
+}
+
+.inputTitle,
+.inputContent:focus {
+  outline: none;
+}
+
+.todoCard {
+  width: 250px;
+  height: 250px;
+
+  display: grid;
+  align-content: space-between;
+
+  padding: 10px;
+
+  border: 5px solid #d2daff;
+  border-radius: 15px;
+}
+
+.todoListBox {
+  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.firstBtn,
+.secondBtn {
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  padding: 15px;
+
+  font-weight: bold;
+
+  transition: all 0.5s;
+}
+
+.firstBtn:hover,
+.secondBtn:hover {
+  transform: translateY(-3px);
+}
+
+.firstBtn:hover {
+  background-color: #ffe3e1;
+  box-shadow: 0px 0px 5px 3px #ffe3e1;
+}
+
+.secondBtn:hover {
+  background-color: #d2daff;
+  box-shadow: 0px 0px 5px 3px #d2daff;
+}
+
+.firstBtn {
+  background-color: #d2daff;
+}
+
+.secondBtn {
+  background-color: #ffe3e1;
+}
+
+.firstSecondBtn {
+  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}

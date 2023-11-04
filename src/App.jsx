@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
+import TodoList from "./components/TodoList";
 
 function App() {
   const [title, setTitle] = useState("");
@@ -15,7 +16,14 @@ function App() {
   };
 
   // todo list 추가하기
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState([
+    {
+      id: Date.now(),
+      title: "test",
+      content: "리액트 기초 공부해봅시다",
+      isDone: false,
+    },
+  ]);
 
   const clickTodoListAddHandler = () => {
     const newTodoLIst = {
@@ -23,13 +31,24 @@ function App() {
       title,
       content: content,
     };
+    if (title === "" || content === "") {
+      alert("제목 또는 내용을 입력해주세요.");
+      return false;
+    }
     setTodoList([...todoList, newTodoLIst]);
     setTitle("");
     setContent("");
   };
 
   // 완료카드? 완료된 카드가 보이도록 state를 하나 더 만들어줌
-  const [doneList, setDoneList] = useState([]);
+  const [doneList, setDoneList] = useState([
+    {
+      id: Date.now() + 1,
+      title: "test2",
+      content: "리액트 기초 공부해봅시다",
+      isDone: true,
+    },
+  ]);
 
   // 할 일 삭제하기
   const clickTodoListRemoveHandler = function (id) {
@@ -54,12 +73,13 @@ function App() {
       id: id.id,
       title: id.title,
       content: id.content,
+      isDone: !id.isDone,
     };
     const List = todoList.filter(function (list) {
       // console.log(list.id);
       return list.id !== id.id;
     });
-    console.log(id);
+
     setTodoList(List);
     setDoneList([...doneList, doneNewList]);
   };
@@ -70,85 +90,85 @@ function App() {
       id: id.id,
       title: id.title,
       content: id.content,
+      isDone: !id.isDone,
     };
     const doneDelTodo = doneList.filter((list) => {
       return list.id !== id.id;
     });
-    console.log(id);
+
     setDoneList(doneDelTodo);
     setTodoList([...todoList, newCancelList]);
   };
+  console.log(todoList);
+  console.log(doneList);
 
   return (
     <div className="layout">
-      <h1>TODO LIST</h1>
-      <div>
-        <div>
-          제목 : <input type="text" value={title} onChange={onChangeTitle} />
+      <div className="inputBox">
+        <div style={{ marginLeft: "20px" }}>
+          제목 :{" "}
+          <input
+            className="inputTitle"
+            type="text"
+            value={title}
+            onChange={onChangeTitle}
+          />
         </div>
         <div>
           내용 :{" "}
-          <input type="text" value={content} onChange={onChangeContent} />
+          <input
+            type="text"
+            className="inputContent"
+            value={content}
+            onChange={onChangeContent}
+          />
         </div>
-        <button onClick={clickTodoListAddHandler}>추가하기</button>
+        <button className="addTodoListBtn" onClick={clickTodoListAddHandler}>
+          추가하기
+        </button>
       </div>
-      <div>
-        <p>🔥Working</p>
-      </div>
-
-      {todoList.map((todoList) => {
-        return (
-          <div>
-            <div key={todoList.id}>
-              <p>{todoList.title}</p>
-              {todoList.content}
-            </div>
-            <button
-              onClick={() => {
-                clickTodoListRemoveHandler(todoList.id);
-              }}
-            >
-              삭제하기
-            </button>
-            <button
-              onClick={() => {
-                clickDoneList(todoList);
-              }}
-            >
-              완료
-            </button>
-          </div>
-        );
-      })}
 
       <div>
-        <p>✌️Done!!</p>
+        <h2>🔥Working</h2>
+      </div>
+      <div className="todoListBox">
+        {todoList.map((todoList) => {
+          return (
+            <TodoList
+              todoList={todoList}
+              title={todoList.title}
+              key={todoList.id}
+              content={todoList.content}
+              firstBtnHandler={clickTodoListRemoveHandler}
+              secondBtnHandler={clickDoneList}
+              firstBtn="삭제하기"
+              secondBtn="완료하기"
+            />
+          );
+        })}
       </div>
 
-      {doneList.map((doneList) => {
-        return (
-          <div>
-            <div key={doneList.id}>
-              <p>{doneList.title}</p>
-              {doneList.content}
-            </div>
-            <button
-              onClick={() => {
-                ClickDTRemoveHandler(doneList.id);
-              }}
-            >
-              삭제하기
-            </button>
-            <button
-              onClick={() => {
-                clickCancelHandler(doneList);
-              }}
-            >
-              취소
-            </button>
-          </div>
-        );
-      })}
+      <div>
+        <h2>✌️Done!!</h2>
+      </div>
+      <div className="todoListBox">
+        {doneList.map((doneList) => {
+          return (
+            <TodoList
+              todoList={doneList}
+              title={doneList.title}
+              key={doneList.id}
+              content={doneList.content}
+              firstBtnHandler={ClickDTRemoveHandler}
+              secondBtnHandler={clickCancelHandler}
+              firstBtn="삭제하기"
+              secondBtn="취소하기"
+            />
+          );
+        })}
+      </div>
+
+      <footer>🦊🐾🦊</footer>
     </div>
   );
 }
