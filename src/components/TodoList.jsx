@@ -2,11 +2,11 @@ import React from "react";
 import "../App.jsx";
 
 function TodoList(props) {
-  const { title, content, key, todoList, firstBtn, secondBtn } = props;
-
+  const { title, content, todoList, firstBtn, secondBtn } = props;
+  // console.log(props);
   return (
     <div className="todoCard">
-      <div key={key}>
+      <div>
         <h3>{title}</h3>
         <p>{content}</p>
       </div>

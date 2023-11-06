@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 import TodoList from "./components/TodoList";
@@ -30,6 +29,7 @@ function App() {
       id: Date.now(),
       title,
       content: content,
+      isDone: false,
     };
     if (title === "" || content === "") {
       alert("제목 또는 내용을 입력해주세요.");
@@ -99,8 +99,8 @@ function App() {
     setDoneList(doneDelTodo);
     setTodoList([...todoList, newCancelList]);
   };
-  console.log(todoList);
-  console.log(doneList);
+  // console.log(todoList);
+  // console.log(doneList);
 
   return (
     <div className="layout">
@@ -133,12 +133,14 @@ function App() {
       </div>
       <div className="todoListBox">
         {todoList.map((todoList) => {
+          // console.log(todoList.id);
           return (
             <TodoList
               todoList={todoList}
               title={todoList.title}
               key={todoList.id}
               content={todoList.content}
+              isDone={todoList.isDone}
               firstBtnHandler={clickTodoListRemoveHandler}
               secondBtnHandler={clickDoneList}
               firstBtn="삭제하기"
@@ -159,6 +161,7 @@ function App() {
               title={doneList.title}
               key={doneList.id}
               content={doneList.content}
+              isDone={doneList.isDone}
               firstBtnHandler={ClickDTRemoveHandler}
               secondBtnHandler={clickCancelHandler}
               firstBtn="삭제하기"
