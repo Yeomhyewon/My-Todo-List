@@ -60,7 +60,7 @@ function App() {
   };
 
   // 완료 삭제하기
-  const ClickDTRemoveHandler = (id) => {
+  const ClickDoneRemoveHandler = (id) => {
     const doneTodo = doneList.filter((list) => {
       return list.id !== id;
     });
@@ -162,7 +162,7 @@ function App() {
               key={doneList.id}
               content={doneList.content}
               isDone={doneList.isDone}
-              firstBtnHandler={ClickDTRemoveHandler}
+              firstBtnHandler={ClickDoneRemoveHandler}
               secondBtnHandler={clickCancelHandler}
               firstBtn="삭제하기"
               secondBtn="취소하기"
